@@ -1,128 +1,136 @@
-#include <IRremote.h>
+/*
+   Copyright (c) 2019 MysteryH4ck
+   This software is licensed under the MIT License. See the license file for details.
+   Source: github.com/spacehuhn/bill
+ */
 
+#include "config.h"
 
-#define BTN 6
+#include "debug.h"
+#include "led.h"
+#include "button.h"
+#include "ir.h"
 
-#define IR_RECEIVE 7
-#define IR_SEND 3
+typedef struct color_t {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} color_t;
 
-#define LED_R 11
-#define LED_G 10
-#define LED_B 9
+typedef struct team_t {
+    char     name;
+    uint32_t code;
+    color_t  dimm;
+    color_t  bright;
+} team_color_t;
 
-#define SPEED_FAST 16
-#define SPEED_NORMAL 18
-#define SPEED_SLOW 22
+typedef struct player_t {
+    team_t* team;
+    color_t color;
+    uint8_t fperc;
+} player_t;
 
+team_t red    = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 } };
+team_t yellow = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 255, 0 } };
+team_t green  = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 } };
+team_t cyan   = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 } };
+team_t blue   = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 } };
+team_t pink   = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 } };
 
-IRsend irsend;
-IRrecv irrecv(IR_RECEIVE);
+player_t player;
 
-decode_results results;
+team_t* get_random_team() {
+    pinMode(A1, INPUT);
+    pinMode(A2, INPUT);
+    pinMode(A3, INPUT);
+    pinMode(A4, INPUT);
+    randomSeed(analogRead(A1) + analogRead(A2) + analogRead(A3) + analogRead(A4) + analogRead(A5));
 
-uint32_t red = 0xFFFFFF01;
-uint32_t green = 0xFFFFFF02;
-uint32_t blue = 0xFFFFFF03;
+    int rteam = random(1, 7);
 
-uint32_t color = 0;
+    if (rteam == 1) return &red;
+    if (rteam == 2) return &yellow;
+    if (rteam == 3) return &green;
+    if (rteam == 4) return &cyan;
+    if (rteam == 5) return &blue;
+    if (rteam == 6) return &pink;
+
+    debug("AAAAAAAH THIS IS NOT SUPPOSE TO HAPPEN!");
+    return &red;
+}
+
+team_t* get_team(uint32_t code) {
+    if (code == red.code) return &red;
+    if (code == yellow.code) return &yellow;
+    if (code == green.code) return &green;
+    if (code == cyan.code) return &cyan;
+    if (code == blue.code) return &blue;
+    if (code == pink.code) return &pink;
+
+    return NULL;
+}
+
+void player_init() {
+    player.team  = get_random_team();
+    player.color = player.team->bright;
+    player.fperc = 100;
+
+    led::color(player.color.r, player.color.g, player.color.b);
+
+    debugln("Player initialized");
+    debug("Team=");
+    debugln(player.team->name);
+}
+
+void update_player() {
+    led::color(player.color.r, player.color.g, player.color.b);
+}
 
 void setup() {
-  Serial.begin(115200);
+    debug_init();
+    debugln("Booting Bill");
 
-  pinMode(LED_R, OUTPUT);
-  analogWrite(LED_R, 0);
+    led::begin();
+    button::begin();
+    ir::begin();
 
-  pinMode(LED_G, OUTPUT);
-  analogWrite(LED_G, 0);
-
-  pinMode(LED_B, OUTPUT);
-  analogWrite(LED_B, 0);
-
-  pinMode(BTN, INPUT_PULLUP);
-
-  irrecv.enableIRIn();
-
-  pinMode(A1, INPUT);
-  pinMode(A2, INPUT);
-  pinMode(A3, INPUT);
-  pinMode(A4, INPUT);
-  randomSeed(analogRead(A1) + analogRead(A2) + analogRead(A3) + analogRead(A4) + analogRead(A5));
-  
-  color = random(1, 4);
-
-  switch (color) {
-    case 1:
-      digitalWrite(LED_R, HIGH);
-      Serial.println("Red");
-      break;
-    case 2:
-      digitalWrite(LED_G, HIGH);
-      Serial.println("Green");
-      break;
-    case 3:
-      digitalWrite(LED_B, HIGH);
-      Serial.println("Blue");
-      break;
-  }
+    player_init();
 }
 
 void loop() {
-  if (digitalRead(BTN) == LOW) {
-    switch (color/*random(1, 4)*/) {
-      case 1:
-        irsend.sendNEC(red, 32);
-        Serial.print(red, HEX);
-        Serial.println(" Red");
-        delay(100);
-        break;
-      case 2:
-        irsend.sendNEC(green, 32);
-        Serial.print(green, HEX);
-        Serial.println(" Green");
-        delay(100);
-        break;
-      case 3:
-        irsend.sendNEC(blue, 32);
-        Serial.print(blue, HEX);
-        Serial.println(" Blue");
-        delay(100);
-        break;
-    }
-  } else {
-    if (irrecv.decode(&results)) {
-      uint32_t msg = results.value;
+    if (button::pressed()) {
+        player.color = player.team->bright;
+        player.fperc = 100;
+        led::color(player.color.r, player.color.g, player.color.b);
 
-      if ((msg & 0xFFFFFF00) == 0xFFFFFF00) {
-        uint32_t newcolor = msg & 0x000000FF;
+        ir::send(player.team->code);
 
-        digitalWrite(LED_R, LOW);
-        digitalWrite(LED_G, LOW);
-        digitalWrite(LED_B, LOW);
+        debug("Sending team");
+        debug(player.team->name);
+        debug(" ");
+        debugln(player.team->code, HEX);
 
-        switch (newcolor) {
-          case 1:
-            digitalWrite(LED_R, HIGH);
-            Serial.println("Red");
-            color = newcolor;
-            break;
-          case 2:
-            digitalWrite(LED_G, HIGH);
-            Serial.println("Green");
-            color = newcolor;
-            break;
-          case 3:
-            digitalWrite(LED_B, HIGH);
-            Serial.println("Blue");
-            color = newcolor;
-            break;
-          default:
-            Serial.println(color, HEX);
+        delay(IR_SEND_DELAY);
+    } else if (ir::update()) {
+        uint32_t code = ir::get_msg();
+
+        debug("Received ");
+        debug(code, HEX);
+
+        team_t* team = get_team(code);
+
+        if (team && (team != player.team)) {
+            debug(" ");
+            debug(team->name);
+
+            player.team  = team;
+            player.color = player.team->bright;
+            player.fperc = 100;
+            led::color(player.color.r, player.color.g, player.color.b);
         }
-      } else {
-        Serial.println(msg, HEX);
-      }
 
-      irrecv.resume(); // Receive the next value
+        debugln();
+
+        ir::update();
     }
-  }
 }
