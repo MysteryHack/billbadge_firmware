@@ -22,7 +22,7 @@ typedef struct team_t {
 } team_color_t;
 
 typedef struct player_t {
-    team_t* team;
+    team_t  team;
     color_t color;
     uint8_t fperc;
 } player_t;
