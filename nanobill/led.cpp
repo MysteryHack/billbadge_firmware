@@ -11,7 +11,7 @@
 
 namespace led {
     void rgb_fade(int d) {
-        color(0, 0, 0);
+        rgb(0, 0, 0);
         int c = 0;
 
         while (c < 255) {
@@ -55,9 +55,13 @@ namespace led {
         debugln("LED initialized");
     }
 
-    void color(uint8_t r, uint8_t g, uint8_t b) {
-        digitalWrite(LED_R, r);
-        digitalWrite(LED_G, g);
-        digitalWrite(LED_B, b);
+    void rgb(uint8_t r, uint8_t g, uint8_t b) {
+        analogWrite(LED_R, r);
+        analogWrite(LED_G, g);
+        analogWrite(LED_B, b);
+    }
+
+    void color(const color_t& c) {
+        rgb(c.r, c.g, c.b);
     }
 }

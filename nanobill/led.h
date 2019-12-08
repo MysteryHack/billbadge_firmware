@@ -5,8 +5,11 @@
  */
 
 #include "stdint.h"
+#include "types.h"
 
 namespace led {
     void begin();
-    void color(uint8_t r, uint8_t g, uint8_t b);
+
+    void rgb(uint8_t r, uint8_t g, uint8_t b);
+    void color(const color_t& c);
 }
