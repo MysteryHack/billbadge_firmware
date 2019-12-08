@@ -28,9 +28,6 @@ void loop() {
     if (button::pressed()) {
         player::wololo();
     } else if (ir::update()) {
-        debug("Received ");
-        debugln(ir::get_msg(), HEX);
-
-        player::set_team(team::from_code(ir::get_msg()));
+        player::convert(team::from_code(ir::get_msg()));
     }
 }

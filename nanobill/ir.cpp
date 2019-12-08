@@ -24,7 +24,12 @@ namespace ir {
     bool update() {
         if (irrecv.decode(&results)) {
             msg = results.value;
+
+            debug("Received ");
+            debugln(msg, HEX);
+
             irrecv.resume();
+
             return true;
         }
 
@@ -41,6 +46,7 @@ namespace ir {
         // irsend.sendRC6(code, 32); // sucks
         // irsend.sendSAMSUNG(code, 32); // sucks hard
         // irsend.sendSony(code, 32); // meh
+
         irrecv.enableIRIn();
     }
 }
