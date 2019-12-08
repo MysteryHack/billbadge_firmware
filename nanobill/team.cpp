@@ -12,38 +12,14 @@
 namespace team {
     const team_t nt = { '0', 0x00000000, { 0, 0, 0 }, { 0, 0, 0 } };
 
-    const PROGMEM  team_t r = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 } };
-    const PROGMEM  team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 255, 0 } };
-    const PROGMEM  team_t g = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 } };
-    const PROGMEM  team_t c = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 } };
-    const PROGMEM  team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 } };
-    const PROGMEM  team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 } };
+    const team_t r = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 } };
+    const team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 255, 0 } };
+    const team_t g = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 } };
+    const team_t c = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 } };
+    const team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 } };
+    const team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 } };
 
-    /*
-        team_t red() {
-            return r;
-        }
-
-        team_t yellow() {
-            return y;
-        }
-
-        team_t green() {
-            return g;
-        }
-
-        team_t cyan() {
-            return c;
-        }
-
-        team_t blue() {
-            return b;
-        }
-
-        team_t pink() {
-            return p;
-        }*/
-    bool validate(const team_t& t) {
+    bool validate(team_t t) {
         return t == r || t == y || t == g || t == c || t == b || t == p;
     }
 

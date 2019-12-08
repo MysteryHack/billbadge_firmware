@@ -14,5 +14,5 @@ namespace player {
 
     void wololo();
 
-    void set_team(const team_t& t);
+    void convert(team_t t);
 }

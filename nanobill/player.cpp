@@ -16,7 +16,7 @@ namespace player {
     player_t p;
 
     void begin() {
-        set_team(team::pick_random());
+        convert(team::pick_random());
         debugln("Player initialized");
     }
 
@@ -27,7 +27,7 @@ namespace player {
     void wololo() {
         ir::send(p.team.code);
 
-        debug("Sending team");
+        debug("Sending team ");
         debug(p.team.name);
         debug(" ");
         debugln(p.team.code, HEX);
@@ -35,14 +35,16 @@ namespace player {
         delay(IR_SEND_DELAY);
     }
 
-    void set_team(const team_t& t) {
+    void convert(team_t t) {
         if (team::validate(t) && (t != p.team)) {
             p.team  = t;
-            p.color = p.team.dimm;
+            p.color = t.dimm;
             p.fperc = 0;
 
             debug("Team=");
-            debugln(p.team.name);
+            debug(p.team.name);
+            debug(" ");
+            debugln(p.team.code, HEX);
 
             update();
         }
