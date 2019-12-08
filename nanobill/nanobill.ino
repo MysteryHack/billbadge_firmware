@@ -5,30 +5,11 @@
  */
 
 #include "config.h"
-
+#include "types.h"
 #include "debug.h"
 #include "led.h"
 #include "button.h"
 #include "ir.h"
-
-typedef struct color_t {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-} color_t;
-
-typedef struct team_t {
-    char     name;
-    uint32_t code;
-    color_t  dimm;
-    color_t  bright;
-} team_color_t;
-
-typedef struct player_t {
-    team_t* team;
-    color_t color;
-    uint8_t fperc;
-} player_t;
 
 team_t red    = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 } };
 team_t yellow = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 255, 0 } };
