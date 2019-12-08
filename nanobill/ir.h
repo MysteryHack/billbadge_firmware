@@ -8,7 +8,9 @@
 
 namespace ir {
     void begin();
-    int update();
+    bool update();
+
     uint32_t get_msg();
+
     void send(uint32_t code);
 }

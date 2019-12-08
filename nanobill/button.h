@@ -6,5 +6,5 @@
 
 namespace button {
     void begin();
-    int pressed();
+    bool pressed();
 }

@@ -15,7 +15,7 @@ namespace button {
         debugln("Button initialized");
     }
 
-    int pressed() {
+    bool pressed() {
         return digitalRead(BTN) == LOW;
     }
 }

@@ -21,7 +21,7 @@ namespace ir {
         debugln("IR initialized");
     }
 
-    int update() {
+    bool update() {
         if (irrecv.decode(&results)) {
             msg = results.value;
             irrecv.resume();
