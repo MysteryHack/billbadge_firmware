@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "stdint.h"
+
 typedef struct color_t {
     uint8_t r;
     uint8_t g;
