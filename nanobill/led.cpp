@@ -10,49 +10,48 @@
 #include <Arduino.h>
 
 namespace led {
+    void rgb_fade(int d) {
+        color(0, 0, 0);
+        int c = 0;
+
+        while (c < 255) {
+            analogWrite(LED_R, ++c);
+            delay(d);
+        }
+
+        while (c > 0) {
+            analogWrite(LED_R, --c);
+            delay(d);
+        }
+
+        while (c < 255) {
+            analogWrite(LED_G, ++c);
+            delay(d);
+        }
+
+        while (c > 0) {
+            analogWrite(LED_G, --c);
+            delay(d);
+        }
+
+        while (c < 255) {
+            analogWrite(LED_B, ++c);
+            delay(d);
+        }
+
+        while (c > 0) {
+            analogWrite(LED_B, --c);
+            delay(d);
+        }
+    }
+
     void begin() {
         pinMode(LED_R, OUTPUT);
         pinMode(LED_G, OUTPUT);
         pinMode(LED_B, OUTPUT);
 
-        int c;
+        rgb_fade(1);
 
-        /*
-                color(0, 0, 0);
-                c = 0;
-
-                while (c < 255) {
-                    analogWrite(LED_R, ++c);
-                    delay(1);
-                }
-
-                while (c > 0) {
-                    analogWrite(LED_R, --c);
-                    delay(2);
-                }
-
-                while (c < 255) {
-                    analogWrite(LED_G, ++c);
-                    delay(1);
-                }
-
-                while (c > 0) {
-                    analogWrite(LED_G, --c);
-                    delay(1);
-                }
-
-                while (c < 255) {
-                    analogWrite(LED_B, ++c);
-                    delay(1);
-                }
-
-                while (c > 0) {
-                    analogWrite(LED_B, --c);
-                    delay(1);
-                }
-
-                delay(500);
-         */
         debugln("LED initialized");
     }
 
