@@ -7,7 +7,7 @@
 #pragma once
 
 // Serial debugging
-// #define ENABLE_DEBUG
+#define ENABLE_DEBUG
 #define DEBUG_PORT Serial
 #define DEBUG_BAUD 115200
 
@@ -31,3 +31,9 @@
 
 // Fading time for each step in ms
 #define PLAYER_UPDATE 20
+
+// Time in ms until player can change teams
+#define PLAYER_TIMEOUT 10000
+
+// Preflashed Player color (r,y,g,c,b,p) comment out for random color
+#define PLAYER_COLOR p

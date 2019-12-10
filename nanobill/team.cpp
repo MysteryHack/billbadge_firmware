@@ -8,12 +8,13 @@
 
 #include <Arduino.h>
 #include "debug.h"
+#include "config.h"
 
 namespace team {
     const team_t nt = { '0', 0x00000000, { 0, 0, 0 }, { 0, 0, 0 } };
 
     const team_t r = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 } };
-    const team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 255, 0 } };
+    const team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 45, 0 } };
     const team_t g = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 } };
     const team_t c = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 } };
     const team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 } };
@@ -24,11 +25,13 @@ namespace team {
     }
 
     team_t get_random() {
+#ifdef PLAYER_COLOR
+        return PLAYER_COLOR;
+#else // ifdef PLAYER_COLOR
         pinMode(A1, INPUT);
         pinMode(A2, INPUT);
         pinMode(A3, INPUT);
-        pinMode(A4, INPUT);
-        randomSeed(analogRead(A1) + analogRead(A2) + analogRead(A3) + analogRead(A4) + analogRead(A5));
+        randomSeed(analogRead(A1) + analogRead(A2) + analogRead(A3));
 
         int rteam = random(1, 7);
 
@@ -38,6 +41,7 @@ namespace team {
         if (rteam == 4) return c;
         if (rteam == 5) return b;
         /*if (rteam == 6) */ return p;
+#endif // ifdef PLAYER_COLOR
     }
 
     team_t from_code(uint32_t code) {

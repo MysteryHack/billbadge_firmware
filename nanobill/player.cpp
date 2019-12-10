@@ -15,7 +15,8 @@
 namespace player {
     team_t team;
 
-    unsigned long prev_update = 0;
+    unsigned long prev_update   = 0;
+    unsigned long timeout_begin = 0;
 
     uint8_t step     = 0;
     int8_t  step_add = 1;
@@ -31,6 +32,8 @@ namespace player {
         debug(team.name);
         debug(" ");
         debugln(team.code, HEX);
+
+        timeout_begin = millis();
     }
 
     void begin() {
@@ -83,7 +86,7 @@ namespace player {
     }
 
     void convert(uint32_t code) {
-        if (code != team.code) {
+        if ((millis() - timeout_begin >= PLAYER_TIMEOUT) && (code != team.code)) {
             if (team::validate_code(code)) {
                 set_team(team::from_code(code));
             }

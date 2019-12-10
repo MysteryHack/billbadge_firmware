@@ -18,7 +18,7 @@ namespace ir {
 
     void begin() {
         irrecv.enableIRIn();
-        debugln("IR initialized");
+        debugln("IR receive activated");
     }
 
     bool update() {
