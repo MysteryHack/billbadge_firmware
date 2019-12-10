@@ -20,15 +20,3 @@ typedef struct team_t {
     color_t  dimm;
     color_t  bright;
 } team_color_t;
-
-typedef struct player_t {
-    team_t  team;
-    color_t color;
-    uint8_t fperc;
-} player_t;
-
-bool operator==(const color_t& c1, const color_t& c2);
-bool operator!=(const color_t& c1, const color_t& c2);
-
-bool operator==(const team_t& t1, const team_t& t2);
-bool operator!=(const team_t& t1, const team_t& t2);

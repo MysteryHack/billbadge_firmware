@@ -13,40 +13,80 @@
 #include "ir.h"
 
 namespace player {
-    player_t p;
+    team_t team;
+
+    unsigned long prev_update = 0;
+
+    uint8_t step     = 0;
+    int8_t  step_add = 1;
+
+    void set_team(team_t t) {
+        team = t;
+
+        led::color(team.dimm);
+        step     = 0;
+        step_add = 1;
+
+        debug("Team=");
+        debug(team.name);
+        debug(" ");
+        debugln(team.code, HEX);
+    }
 
     void begin() {
-        convert(team::pick_random());
+        set_team(team::get_random());
         debugln("Player initialized");
     }
 
     void update() {
-        led::color(p.color);
+        if (millis() - prev_update >= PLAYER_UPDATE) {
+            prev_update += PLAYER_UPDATE;
+
+            color_t new_color;
+
+            // Fading magic: (Max-Min)/Steps * CurrentStep + Min
+            new_color.r = (team.bright.r - team.dimm.r)/float(255) * step + team.dimm.r;
+            new_color.g = (team.bright.g - team.dimm.g)/float(255) * step + team.dimm.g;
+            new_color.b = (team.bright.b - team.dimm.b)/float(255) * step + team.dimm.b;
+
+            led::color(new_color);
+
+            step += step_add;
+
+            if ((step == 0) || (step == 255)) {
+                step_add = -step_add;
+            }
+
+            /*
+                        debug(perc);
+                        debug("=");
+                        debug(new_color.r);
+                        debug(" ");
+                        debug(new_color.g);
+                        debug(" ");
+                        debugln(new_color.b);
+             */
+        }
     }
 
     void wololo() {
-        ir::send(p.team.code);
+        led::digital(0, 0, 0);
+
+        ir::send(team.code);
 
         debug("Sending team ");
-        debug(p.team.name);
+        debug(team.name);
         debug(" ");
-        debugln(p.team.code, HEX);
+        debugln(team.code, HEX);
 
         delay(IR_SEND_DELAY);
     }
 
-    void convert(team_t t) {
-        if (team::validate(t) && (t != p.team)) {
-            p.team  = t;
-            p.color = t.dimm;
-            p.fperc = 0;
-
-            debug("Team=");
-            debug(p.team.name);
-            debug(" ");
-            debugln(p.team.code, HEX);
-
-            update();
+    void convert(uint32_t code) {
+        if (code != team.code) {
+            if (team::validate_code(code)) {
+                set_team(team::from_code(code));
+            }
         }
     }
 }

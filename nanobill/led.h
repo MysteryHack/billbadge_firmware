@@ -10,6 +10,9 @@
 namespace led {
     void begin();
 
+    void digital(bool r, bool g, bool b);
     void rgb(uint8_t r, uint8_t g, uint8_t b);
     void color(color_t c);
+
+    void update();
 }

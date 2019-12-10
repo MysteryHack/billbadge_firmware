@@ -14,5 +14,5 @@ namespace player {
 
     void wololo();
 
-    void convert(team_t t);
+    void convert(uint32_t code);
 }

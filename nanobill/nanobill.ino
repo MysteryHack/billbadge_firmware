@@ -28,6 +28,9 @@ void loop() {
     if (button::pressed()) {
         player::wololo();
     } else if (ir::update()) {
-        player::convert(team::from_code(ir::get_msg()));
+        player::convert(ir::get_msg());
     }
+
+    player::update();
+    led::update();
 }

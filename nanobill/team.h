@@ -9,8 +9,9 @@
 #include "types.h"
 
 namespace team {
-    bool validate(team_t t);
+    bool validate_code(uint32_t code);
 
-    team_t pick_random();
+    team_t get_random();
+
     team_t from_code(uint32_t code);
 }

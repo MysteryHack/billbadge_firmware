@@ -19,11 +19,11 @@ namespace team {
     const team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 } };
     const team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 } };
 
-    bool validate(team_t t) {
-        return t == r || t == y || t == g || t == c || t == b || t == p;
+    bool validate_code(uint32_t code) {
+        return code == r.code || code == y.code || code == g.code || code == c.code || code == b.code || code == p.code;
     }
 
-    team_t pick_random() {
+    team_t get_random() {
         pinMode(A1, INPUT);
         pinMode(A2, INPUT);
         pinMode(A3, INPUT);
@@ -37,9 +37,7 @@ namespace team {
         if (rteam == 3) return g;
         if (rteam == 4) return c;
         if (rteam == 5) return b;
-        if (rteam == 6) return p;
-
-        return r;
+        /*if (rteam == 6) */ return p;
     }
 
     team_t from_code(uint32_t code) {
