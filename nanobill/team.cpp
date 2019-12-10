@@ -11,14 +11,14 @@
 #include "config.h"
 
 namespace team {
-    const team_t nt = { '0', 0x00000000, { 0, 0, 0 }, { 0, 0, 0 } };
+    team_t nt = { '0', 0x00000000, { 0, 0, 0 }, { 0, 0, 0 }, 0 };
 
-    const team_t r = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 } };
-    const team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 45, 0 } };
-    const team_t g = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 } };
-    const team_t c = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 } };
-    const team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 } };
-    const team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 } };
+    team_t r = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 }, 0 };
+    team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 45, 0 }, 0 };
+    team_t g = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 }, 0 };
+    team_t c = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 }, 0 };
+    team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 }, 0 };
+    team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 }, 0 };
 
     bool validate_code(uint32_t code) {
         return code == r.code || code == y.code || code == g.code || code == c.code || code == b.code || code == p.code;
@@ -53,5 +53,18 @@ namespace team {
         if (code == p.code) return p;
 
         return team_t();
+    }
+
+    void increase(uint32_t code) {
+        if ((code == r.code) && (r.counter < 255)) ++r.counter;
+        else if ((code == y.code) && (y.counter < 255)) ++y.counter;
+        else if ((code == g.code) && (g.counter < 255)) ++g.counter;
+        else if ((code == c.code) && (c.counter < 255)) ++c.counter;
+        else if ((code == b.code) && (b.counter < 255)) ++b.counter;
+        else if ((code == p.code) && (p.counter < 255)) ++p.counter;
+    }
+
+    bool unicorn() {
+        return r.counter && y.counter && g.counter && c.counter && b.counter && p.counter;
     }
 }

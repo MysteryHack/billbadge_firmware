@@ -22,6 +22,8 @@ namespace player {
     int8_t  step_add = 1;
 
     void set_team(team_t t) {
+        team::increase(t.code);
+
         team = t;
 
         led::color(team.dimm);

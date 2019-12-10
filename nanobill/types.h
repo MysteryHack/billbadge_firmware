@@ -19,4 +19,5 @@ typedef struct team_t {
     uint32_t code;
     color_t  dimm;
     color_t  bright;
+    uint8_t  counter;
 } team_color_t;
