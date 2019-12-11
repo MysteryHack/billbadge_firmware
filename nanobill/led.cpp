@@ -48,8 +48,12 @@ namespace led {
         changed = true;
     }
 
-    void color(color_t c) {
-        rgb(c.r, c.g, c.b);
+    void color(const color_t& c) {
+        new_color[0] = 255 - c.r;
+        new_color[1] = 255 - c.g;
+        new_color[2] = 255 - c.b;
+
+        changed = true;
     }
 
     void update() {
