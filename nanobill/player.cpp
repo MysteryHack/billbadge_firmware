@@ -32,30 +32,30 @@ namespace player {
     int8_t  step_add = 1;
 
     void set_team(team_t* t) {
-        if (t) {
-            team = t;
+        if (!t) t = team::get_random();
 
-            p.team_code        = team->code;
-            p.team_collection |= 1<<team->bit;
+        team = t;
+
+        p.team_code        = team->code;
+        p.team_collection |= 1<<team->bit;
 
 #ifdef SAVE_PLAYER_STATS
-            eeprom::save(0, p);
+        eeprom::save(0, p);
 #endif // ifdef SAVE_PLAYER_STATS
 
-            led::color(team->dimm);
+        led::color(team->dimm);
 
-            step     = 0;
-            step_add = 1;
+        step     = 0;
+        step_add = 1;
 
-            debug("Team=");
-            debug(team->name);
-            debug(" ");
-            debugln(team->code, HEX);
-            debug("Collected teams: ");
-            debugln(p.team_collection, BIN);
+        debug("Team=");
+        debug(team->name);
+        debug(" ");
+        debugln(team->code, HEX);
+        debug("Collected teams: ");
+        debugln(p.team_collection, BIN);
 
-            timeout_begin = millis();
-        }
+        timeout_begin = millis();
     }
 
     void begin() {

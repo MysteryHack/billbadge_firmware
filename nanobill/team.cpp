@@ -11,12 +11,12 @@
 #include "config.h"
 
 namespace team {
-    team_t r = { 'R', 0, 0xFFFFFF01, { 30, 0, 0 }, { 255, 0, 0 } };
-    team_t y = { 'Y', 1, 0xFFFFFF02, { 30, 10, 0 }, { 255, 40, 0 } };
-    team_t g = { 'G', 2, 0xFFFFFF03, { 0, 4, 0 }, { 0, 50, 0 } };
-    team_t c = { 'C', 3, 0xFFFFFF04, { 0, 18, 14 }, { 0, 65, 100 } };
-    team_t b = { 'B', 4, 0xFFFFFF05, { 0, 0, 10 }, { 0, 0, 200 } };
-    team_t p = { 'P', 5, 0xFFFFFF06, { 40, 0, 10 }, { 255, 0, 150 } };
+    team_t r = { 'R', 0, 0xef301c9a, { 30, 0, 0 }, { 255, 0, 0 } };
+    team_t y = { 'Y', 1, 0x8187745d, { 30, 10, 0 }, { 255, 40, 0 } };
+    team_t g = { 'G', 2, 0xcad2655e, { 0, 4, 0 }, { 0, 50, 0 } };
+    team_t c = { 'C', 3, 0x4ad7d0a9, { 0, 18, 14 }, { 0, 65, 100 } };
+    team_t b = { 'B', 4, 0x7da81da1, { 0, 0, 10 }, { 0, 0, 200 } };
+    team_t p = { 'P', 5, 0x6c45e2dd, { 40, 0, 10 }, { 255, 0, 150 } };
 
     bool validate_code(uint32_t code) {
         return code == r.code
