@@ -11,8 +11,14 @@
 #define DEBUG_PORT Serial
 #define DEBUG_BAUD 115200
 
+// Times you can send a signal before delay
+#define WOLOLO_MAX 5
+
 // Time in ms after each signal sent
-#define IR_SEND_DELAY 250
+#define WOLOLO_DELAY 200
+
+// Time in ms after exceeding amount of sents
+#define WOLOLO_TIMEOUT 5000
 
 // Button pin
 #define BTN 6

@@ -18,6 +18,10 @@ namespace player {
     unsigned long prev_update   = 0;
     unsigned long timeout_begin = 0;
 
+    unsigned long wololo_time = 0;
+
+    uint8_t wololo_count = 0;
+
     uint8_t step     = 0;
     int8_t  step_add = 1;
 
@@ -79,16 +83,27 @@ namespace player {
 
     void wololo() {
         if (team) {
-            led::digital(0, 0, 0);
+            unsigned long m = millis();
 
-            ir::send(team->code);
+            if (m - wololo_time >= WOLOLO_TIMEOUT) {
+                wololo_count = 0;
+            }
 
-            debug("Sending team ");
-            debug(team->name);
-            debug(" ");
-            debugln(team->code, HEX);
+            if ((wololo_count < WOLOLO_MAX) && (m - wololo_time >= WOLOLO_DELAY)) {
+                wololo_time = m;
+                ++wololo_count;
 
-            delay(IR_SEND_DELAY);
+                // led::digital(0, 0, 0);
+
+                ir::send(team->code);
+
+                debug("Sending team ");
+                debug(team->name);
+                debug(" ");
+                debug(team->code, HEX);
+                debug(" ");
+                debugln(wololo_count);
+            }
         }
     }
 
