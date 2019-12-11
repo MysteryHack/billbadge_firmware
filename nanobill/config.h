@@ -23,11 +23,7 @@
 #define LED_G 10
 #define LED_B 9
 
-#define PWM_HZ 120 // PWM speed in hz
-
-/*! ===== EEPROM ===== */
-#define EEPROM_BOOT_ADDR  432
-#define BOOT_MAGIC_NUM    1234567890
+#define PWM_HZ 120           // PWM speed in hz
 
 /* ===== PLAYER ===== */
 #define WOLOLO_MAX 5         // Times you can send a signal before delay
