@@ -10,8 +10,9 @@
 
 namespace team {
     bool validate_code(uint32_t code);
-    team_t get_random();
-    team_t from_code(uint32_t code);
-    void increase(uint32_t code);
+
+    team_t* get_random();
+    team_t* from_code(uint32_t code);
+
     bool unicorn();
 }

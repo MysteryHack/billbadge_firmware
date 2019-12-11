@@ -13,7 +13,7 @@
 #include "ir.h"
 
 namespace player {
-    team_t team;
+    team_t* team = NULL;
 
     unsigned long prev_update   = 0;
     unsigned long timeout_begin = 0;
@@ -21,21 +21,24 @@ namespace player {
     uint8_t step     = 0;
     int8_t  step_add = 1;
 
-    void set_team(team_t t) {
-        team::increase(t.code);
+    void set_team(team_t* t) {
+        if (t) {
+            team = t;
 
-        team = t;
+            ++team->counter;
 
-        led::color(team.dimm);
-        step     = 0;
-        step_add = 1;
+            led::color(team->dimm);
 
-        debug("Team=");
-        debug(team.name);
-        debug(" ");
-        debugln(team.code, HEX);
+            step     = 0;
+            step_add = 1;
 
-        timeout_begin = millis();
+            debug("Team=");
+            debug(team->name);
+            debug(" ");
+            debugln(team->code, HEX);
+
+            timeout_begin = millis();
+        }
     }
 
     void begin() {
@@ -47,12 +50,12 @@ namespace player {
         if (millis() - prev_update >= PLAYER_UPDATE) {
             prev_update += PLAYER_UPDATE;
 
-            color_t new_color;
-
             // Fading magic: (Max-Min)/Steps * CurrentStep + Min
-            new_color.r = (team.bright.r - team.dimm.r)/float(255) * step + team.dimm.r;
-            new_color.g = (team.bright.g - team.dimm.g)/float(255) * step + team.dimm.g;
-            new_color.b = (team.bright.b - team.dimm.b)/float(255) * step + team.dimm.b;
+            color_t new_color {
+                (team->bright.r - team->dimm.r)/float(255) * step + team->dimm.r,
+                (team->bright.g - team->dimm.g)/float(255) * step + team->dimm.g,
+                (team->bright.b - team->dimm.b)/float(255) * step + team->dimm.b
+            };
 
             led::color(new_color);
 
@@ -63,32 +66,34 @@ namespace player {
             }
 
             /*
-                        debug(perc);
-                        debug("=");
-                        debug(new_color.r);
-                        debug(" ");
-                        debug(new_color.g);
-                        debug(" ");
-                        debugln(new_color.b);
+               debug(step);
+               debug("=");
+               debug(new_color.r);
+               debug(" ");
+               debug(new_color.g);
+               debug(" ");
+               debugln(new_color.b);
              */
         }
     }
 
     void wololo() {
-        led::digital(0, 0, 0);
+        if (team) {
+            led::digital(0, 0, 0);
 
-        ir::send(team.code);
+            ir::send(team->code);
 
-        debug("Sending team ");
-        debug(team.name);
-        debug(" ");
-        debugln(team.code, HEX);
+            debug("Sending team ");
+            debug(team->name);
+            debug(" ");
+            debugln(team->code, HEX);
 
-        delay(IR_SEND_DELAY);
+            delay(IR_SEND_DELAY);
+        }
     }
 
     void convert(uint32_t code) {
-        if ((millis() - timeout_begin >= PLAYER_TIMEOUT) && (code != team.code)) {
+        if ((millis() - timeout_begin >= PLAYER_TIMEOUT) && (code != team->code)) {
             if (team::validate_code(code)) {
                 set_team(team::from_code(code));
             }

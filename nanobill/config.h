@@ -27,7 +27,7 @@
 #define LED_B 9
 
 // PWM speed in hz
-#define PWM_HZ 100
+#define PWM_HZ 120
 
 // Fading time for each step in ms
 #define PLAYER_UPDATE 20
@@ -36,4 +36,4 @@
 #define PLAYER_TIMEOUT 10000
 
 // Preflashed Player color (r,y,g,c,b,p) comment out for random color
-#define PLAYER_COLOR p
+// #define PLAYER_COLOR c

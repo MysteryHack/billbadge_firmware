@@ -21,12 +21,17 @@ namespace team {
     team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 }, 0 };
 
     bool validate_code(uint32_t code) {
-        return code == r.code || code == y.code || code == g.code || code == c.code || code == b.code || code == p.code;
+        return code == r.code
+               || code == y.code
+               || code == g.code
+               || code == c.code
+               || code == b.code
+               || code == p.code;
     }
 
-    team_t get_random() {
+    team_t* get_random() {
 #ifdef PLAYER_COLOR
-        return PLAYER_COLOR;
+        return &PLAYER_COLOR;
 #else // ifdef PLAYER_COLOR
         pinMode(A1, INPUT);
         pinMode(A2, INPUT);
@@ -35,33 +40,24 @@ namespace team {
 
         int rteam = random(1, 7);
 
-        if (rteam == 1) return r;
-        if (rteam == 2) return y;
-        if (rteam == 3) return g;
-        if (rteam == 4) return c;
-        if (rteam == 5) return b;
-        /*if (rteam == 6) */ return p;
+        if (rteam == 1) return &r;
+        if (rteam == 2) return &y;
+        if (rteam == 3) return &g;
+        if (rteam == 4) return &c;
+        if (rteam == 5) return &b;
+        /*if (rteam == 6) */ return &p;
 #endif // ifdef PLAYER_COLOR
     }
 
-    team_t from_code(uint32_t code) {
-        if (code == r.code) return r;
-        if (code == y.code) return y;
-        if (code == g.code) return g;
-        if (code == c.code) return c;
-        if (code == b.code) return b;
-        if (code == p.code) return p;
+    team_t* from_code(uint32_t code) {
+        if (code == r.code) return &r;
+        if (code == y.code) return &y;
+        if (code == g.code) return &g;
+        if (code == c.code) return &c;
+        if (code == b.code) return &b;
+        if (code == p.code) return &p;
 
-        return team_t();
-    }
-
-    void increase(uint32_t code) {
-        if ((code == r.code) && (r.counter < 255)) ++r.counter;
-        else if ((code == y.code) && (y.counter < 255)) ++y.counter;
-        else if ((code == g.code) && (g.counter < 255)) ++g.counter;
-        else if ((code == c.code) && (c.counter < 255)) ++c.counter;
-        else if ((code == b.code) && (b.counter < 255)) ++b.counter;
-        else if ((code == p.code) && (p.counter < 255)) ++p.counter;
+        return NULL; // team_t();
     }
 
     bool unicorn() {
