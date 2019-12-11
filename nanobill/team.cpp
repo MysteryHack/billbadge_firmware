@@ -11,14 +11,12 @@
 #include "config.h"
 
 namespace team {
-    team_t nt = { '0', 0x00000000, { 0, 0, 0 }, { 0, 0, 0 }, 0 };
-
-    team_t r = { 'R', 0xFFFFFF01, { 40, 0, 0 }, { 255, 0, 0 }, 0 };
-    team_t y = { 'Y', 0xFFFFFF02, { 40, 45, 0 }, { 255, 45, 0 }, 0 };
-    team_t g = { 'G', 0xFFFFFF03, { 0, 50, 0 }, { 0, 255, 0 }, 0 };
-    team_t c = { 'C', 0xFFFFFF04, { 0, 15, 60 }, { 0, 130, 170 }, 0 };
-    team_t b = { 'B', 0xFFFFFF05, { 0, 0, 40 }, { 0, 0, 255 }, 0 };
-    team_t p = { 'P', 0xFFFFFF06, { 50, 0, 15 }, { 255, 0, 150 }, 0 };
+    team_t r = { 'R', 0xFFFFFF01, { 30, 0, 0 }, { 255, 0, 0 }, 0 };
+    team_t y = { 'Y', 0xFFFFFF02, { 30, 10, 0 }, { 255, 40, 0 }, 0 };
+    team_t g = { 'G', 0xFFFFFF03, { 0, 4, 0 }, { 0, 50, 0 }, 0 };
+    team_t c = { 'C', 0xFFFFFF04, { 0, 18, 14 }, { 0, 65, 100 }, 0 };
+    team_t b = { 'B', 0xFFFFFF05, { 0, 0, 10 }, { 0, 0, 200 }, 0 };
+    team_t p = { 'P', 0xFFFFFF06, { 40, 0, 10 }, { 255, 0, 150 }, 0 };
 
     bool validate_code(uint32_t code) {
         return code == r.code
