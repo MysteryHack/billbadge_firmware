@@ -13,12 +13,12 @@ namespace eeprom {
     void end();
 
     template<typename T>
-    void saveObject(const int address, const T& t) {
+    void save(const int address, const T& t) {
         EEPROM.put(address, t);
     }
 
     template<typename T>
-    void getObject(const int address, const T& t) {
+    void get(const int address, const T& t) {
         EEPROM.get(address, t);
     }
 };

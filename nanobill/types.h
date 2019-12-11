@@ -16,8 +16,14 @@ typedef struct color_t {
 
 typedef struct team_t {
     const char     name;
+    const uint8_t  bit;
     const uint32_t code;
     const color_t  dimm;
     const color_t  bright;
-    uint8_t        counter;
 } team_color_t;
+
+typedef struct player_t {
+    uint8_t  magic_num;
+    uint8_t  team_collection;
+    uint32_t team_code;
+} player_t;

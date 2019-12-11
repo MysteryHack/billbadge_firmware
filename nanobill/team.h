@@ -13,6 +13,4 @@ namespace team {
 
     team_t* get_random();
     team_t* from_code(uint32_t code);
-
-    bool unicorn();
 }

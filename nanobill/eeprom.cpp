@@ -23,10 +23,10 @@ namespace eeprom {
         EEPROM.get(EEPROM_BOOT_ADDR, b);
 
         if ((b.magic_num == BOOT_MAGIC_NUM) && (b.boot_num < 3)) {
-            saveObject(EEPROM_BOOT_ADDR, boot_t { BOOT_MAGIC_NUM, ++b.boot_num });
+            save(EEPROM_BOOT_ADDR, boot_t { BOOT_MAGIC_NUM, ++b.boot_num });
             return;
         } else {
-            saveObject(EEPROM_BOOT_ADDR, boot_t { BOOT_MAGIC_NUM, 1 });
+            save(EEPROM_BOOT_ADDR, boot_t { BOOT_MAGIC_NUM, 1 });
         }
     }
 

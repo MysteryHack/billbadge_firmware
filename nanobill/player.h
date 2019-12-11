@@ -13,6 +13,6 @@ namespace player {
     void update();
 
     void wololo();
-
     void convert(uint32_t code);
+    bool unicorn();
 }

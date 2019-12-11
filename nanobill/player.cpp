@@ -13,7 +13,12 @@
 #include "ir.h"
 #include "eeprom.h"
 
+#define PLAYER_MAGIC_NUM 123
+#define UNICORN_MASK 0x3F
+
 namespace player {
+    player_t p;
+
     team_t* team = NULL;
 
     unsigned long prev_update   = 0;
@@ -30,7 +35,12 @@ namespace player {
         if (t) {
             team = t;
 
-            ++team->counter;
+            p.team_code        = team->code;
+            p.team_collection |= 1<<team->bit;
+
+#ifdef SAVE_PLAYER_STATS
+            eeprom::save(0, p);
+#endif // ifdef SAVE_PLAYER_STATS
 
             led::color(team->dimm);
 
@@ -41,13 +51,30 @@ namespace player {
             debug(team->name);
             debug(" ");
             debugln(team->code, HEX);
+            debug("Collected teams: ");
+            debugln(p.team_collection, BIN);
 
             timeout_begin = millis();
         }
     }
 
     void begin() {
+#ifdef SAVE_PLAYER_STATS
+        eeprom::get(0, p);
+
+        if (p.magic_num == PLAYER_MAGIC_NUM) {
+            set_team(team::from_code(p.team_code));
+        } else {
+#endif // ifdef SAVE_PLAYER_STATS
+        p.magic_num       = PLAYER_MAGIC_NUM;
+        p.team_collection = 0;
         set_team(team::get_random());
+
+#ifdef SAVE_PLAYER_STATS
+    }
+
+#endif // ifdef SAVE_PLAYER_STATS
+
         debugln("Player initialized");
     }
 
@@ -114,5 +141,9 @@ namespace player {
                 set_team(team::from_code(code));
             }
         }
+    }
+
+    bool unicorn() {
+        return p.team_collection == UNICORN_MASK;
     }
 }

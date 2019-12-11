@@ -6,9 +6,10 @@
 
 #pragma once
 
-#include <Arduino.h>
+#include "config.h"
 
 #ifdef ENABLE_DEBUG
+  #include <Arduino.h>
 
   #define debug_init() DEBUG_PORT.begin(DEBUG_BAUD);
 
