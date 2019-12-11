@@ -36,7 +36,9 @@
 #define PLAYER_UPDATE 20     // Fading time for each step in ms
 #define PLAYER_TIMEOUT 10000 // Time in ms until player can change teams
 
-// #define SAVE_PLAYER_STATS
+#define UNICORN_UPDATE 30
+
+#define SAVE_PLAYER_STATS
 
 // Preflashed Player color (r,y,g,c,b,p) comment out for random color
 // #define PLAYER_COLOR c

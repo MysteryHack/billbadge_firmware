@@ -10,6 +10,7 @@
 #include "led.h"
 #include "button.h"
 #include "player.h"
+#include "unicorn.h"
 
 void setup() {
     debug_init();
@@ -20,8 +21,16 @@ void setup() {
     led::begin();
     button::begin();
     player::begin();
+    unicorn::begin();
 
     debugln("Bill up and running!");
+
+    if (unicorn::enabled()) {
+        while (1) {
+            unicorn::update();
+            led::update();
+        }
+    }
 }
 
 void loop() {
