@@ -6,20 +6,12 @@
 
 #pragma once
 
-// Serial debugging
+/* ===== DEBUG ===== */
 #define ENABLE_DEBUG
 #define DEBUG_PORT Serial
 #define DEBUG_BAUD 115200
 
-// Times you can send a signal before delay
-#define WOLOLO_MAX 5
-
-// Time in ms after each signal sent
-#define WOLOLO_DELAY 200
-
-// Time in ms after exceeding amount of sents
-#define WOLOLO_TIMEOUT 5000
-
+/* ===== HARDWARE ===== */
 // Button pin
 #define BTN 6
 
@@ -34,6 +26,20 @@
 
 // PWM speed in hz
 #define PWM_HZ 120
+
+/*! ===== EEPROM ===== */
+#define EEPROM_BOOT_ADDR  432
+#define BOOT_MAGIC_NUM    1234567890
+
+/* ===== PLAYER ===== */
+// Times you can send a signal before delay
+#define WOLOLO_MAX 5
+
+// Time in ms after each signal sent
+#define WOLOLO_DELAY 200
+
+// Time in ms after exceeding amount of sents
+#define WOLOLO_TIMEOUT 5000
 
 // Fading time for each step in ms
 #define PLAYER_UPDATE 20

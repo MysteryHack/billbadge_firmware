@@ -4,24 +4,24 @@
    Source: github.com/spacehuhn/bill
  */
 
-#include "config.h"
-#include "types.h"
 #include "debug.h"
+#include "eeprom.h"
+#include "ir.h"
 #include "led.h"
 #include "button.h"
-#include "ir.h"
 #include "player.h"
-#include "team.h"
 
 void setup() {
     debug_init();
-    debugln("Booting Bill");
+    debugln("Booting Bill... please stand by...");
 
+    eeprom::begin();
     ir::begin();
     led::begin();
     button::begin();
-
     player::begin();
+
+    debugln("Bill up and running!");
 }
 
 void loop() {

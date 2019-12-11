@@ -11,6 +11,7 @@
 #include "led.h"
 #include "team.h"
 #include "ir.h"
+#include "eeprom.h"
 
 namespace player {
     team_t* team = NULL;
