@@ -20,19 +20,26 @@ namespace unicorn {
     bool    en         = false;
 
     void begin() {
+#ifdef SAVE_PLAYER_STATS
         if (player::unicorn()) {
-            uint8_t c = 0;
+#endif // ifdef SAVE_PLAYER_STATS
 
-            while (!en && button::pressed()) {
-                ++c;
-                delay(50);
+        uint8_t c = 0;
 
-                if (c == 10) {
-                    en = true;
-                    debugln("Unicorn enabled!");
-                }
+        while (!en && button::pressed()) {
+            ++c;
+            delay(50);
+
+            if (c == 10) {
+                en = true;
+                debugln("Unicorn enabled!");
             }
         }
+
+#ifdef SAVE_PLAYER_STATS
+    }
+
+#endif // ifdef SAVE_PLAYER_STATS
     }
 
     void update() {
