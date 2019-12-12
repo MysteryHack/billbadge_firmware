@@ -29,12 +29,13 @@
 #define WOLOLO_MAX 5         // Times you can send a signal before delay
 #define WOLOLO_DELAY 200     // Time in ms after each signal sent
 #define WOLOLO_TIMEOUT 5000  // Time in ms after exceeding amount of sents
+
 #define PLAYER_UPDATE 20     // Fading time for each step in ms
 #define PLAYER_TIMEOUT 10000 // Time in ms until player can change teams
 
-#define UNICORN_UPDATE 30
+#define UNICORN_UPDATE 30    // Fading time for each rainbow step in ms
 
-#define SAVE_PLAYER_STATS
+#define SAVE_PLAYER_STATS    // Save color in EEPROM
 
 // Preflashed Player color (r,y,g,c,b,p) comment out for random color
 // #define PLAYER_COLOR c
