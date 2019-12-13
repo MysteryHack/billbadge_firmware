@@ -7,7 +7,7 @@
 #include "ir.h"
 #include "config.h"
 
-#include <IRremote.h>
+#include "IRremote.h"
 
 namespace ir {
     IRsend irsend;
