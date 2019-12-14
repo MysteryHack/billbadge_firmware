@@ -16,6 +16,6 @@ namespace button {
     }
 
     bool pressed() {
-        return READ_BUTTON();
+        return BUTTON_READ();
     }
 }

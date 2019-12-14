@@ -6,40 +6,9 @@
 
 #pragma once
 
-/* ===== DEBUG ===== */
-#define ENABLE_DEBUG
-#define DEBUG_PORT Serial
-#define DEBUG_BAUD 115200
-#define RANDOM_SEED
-
-/* ===== HARDWARE ===== */
-#define BUTTON_MODE() (pinMode(BTN, INPUT_PULLUP))
-#define READ_BUTTON() (digitalRead(BTN) == LOW)
-
-#define IR_RECEIVE_MODE() (pinMode(irparams.recvpin, INPUT))
-#define IR_RECEIVE_READ() ((uint8_t)digitalRead(irparams.recvpin))
-
-#define IR_SEND_MODE() (pinMode(TIMER_PWM_PIN, OUTPUT))
-#define IR_SEND_LOW() (digitalWrite(TIMER_PWM_PIN, LOW))
-
-#define RGB_MODE() pinMode(LED_R, OUTPUT); pinMode(LED_G, OUTPUT); pinMode(LED_B, OUTPUT);
-#define RGB_SET(rx, gx, bx) (PORTB |= (rx<<PB3) | (gx<<PB2) | (bx<<PB1))
-#define RGB_RESET() (PORTB &= ~(1<<PB3 | 1<<PB2 | 1<<PB1))
-
-#define BTN 6 // Button pin
-
-// Infrared receive and send pin
-#define IR_RECEIVE 7
-#define IR_SEND 3
-
-// RGB LED pins
-#define LED_R 11
-#define LED_G 10
-#define LED_B 9
-
+// =========== GAME CONFIG ========= //
 #define PWM_HZ 120           // PWM speed in hz
 
-/* ===== PLAYER ===== */
 #define WOLOLO_MAX 5         // Times you can send a signal before delay
 #define WOLOLO_DELAY 200     // Time in ms after each signal sent
 #define WOLOLO_TIMEOUT 5000  // Time in ms after exceeding amount of sents
@@ -51,5 +20,49 @@
 
 #define SAVE_PLAYER_STATS    // Save color in EEPROM
 
-// Preflashed Player color (r,y,g,c,b,p) comment out for random color
-// #define PLAYER_COLOR c
+#define PLAYER_COLOR c
+
+
+#define USE_NANO
+// #define USE_ATTINY
+
+
+// =========== ARDUINO NANO CONFIG ========= //
+#ifdef USE_NANO
+/* ===== DEBUG ===== */
+  #define ENABLE_DEBUG
+  #define DEBUG_PORT Serial
+  #define DEBUG_BAUD 115200
+
+/* ===== HARDWARE ===== */
+  #define BUTTON_MODE() DDRD |= (0 << DDD6); PORTD |= (1 << PD6);
+  #define BUTTON_READ() (PIND & (1 << PIND6)) == 0
+
+  #define IR_RECEIVE_MODE() DDRD |= (0 << DDD7);
+  #define IR_RECEIVE_READ() (PIND & (1 << PIND7)) != 0
+
+  #define IR_SEND_MODE() DDRD |= (1 << DDD3);
+  #define IR_SEND_LOW() PORTD &= ~(1 << PD3);
+
+  #define RGB_MODE() DDRB |= (1<<PB3 | 1<<PB2 | 1<<PB1);
+  #define RGB_SET(r, g, b) (PORTB |= (r<<PB3) | (g<<PB2) | (b<<PB1))
+  #define RGB_RESET() (PORTB &= ~(1<<PB3 | 1<<PB2 | 1<<PB1))
+
+// =========== ATTINY85 CONFIG ========= //
+#elif defined(USE_ATTINY)
+
+/* ===== HARDWARE ===== */
+  #define BUTTON_MODE() DDRD |= (0 << DDD6); PORTB |= (1 << PD6);
+  #define READ_BUTTON() (PIND & (1 << PIND6)) == 0
+
+  #define IR_RECEIVE_MODE() DDRD |= (0 << DDD7);
+  #define IR_RECEIVE_READ() (PIND & (1 << PIND7)) != 0
+
+  #define IR_SEND_MODE() DDRD |= (1 << DDD3);
+  #define IR_SEND_LOW() PORTD &= ~(1 << PD3);
+
+  #define RGB_MODE() DDRB |= (1<<PB3 | 1<<PB2 | 1<<PB1);
+  #define RGB_SET(rx, gx, bx) (PORTB |= (rx<<PB3) | (gx<<PB2) | (bx<<PB1))
+  #define RGB_RESET() (PORTB &= ~(1<<PB3 | 1<<PB2 | 1<<PB1))
+
+#endif /* ifdef USE_NANO */

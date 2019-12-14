@@ -167,8 +167,6 @@ class decode_results
 class IRrecv
 {
     public:
-        IRrecv(int recvpin);
-
         int   decode(decode_results* results);
         void  enableIRIn();
         bool  isIdle();

@@ -46,7 +46,6 @@ typedef
     struct {
     // The fields are ordered to reduce memory over caused by struct-padding
     uint8_t      rcvstate;       // State Machine state
-    uint8_t      recvpin;        // Pin connected to IR data from detector
     uint8_t      rawlen;         // counter of entries in rawbuf
     unsigned int timer;          // State timer, counts 50uS ticks.
     unsigned int rawbuf[RAWBUF]; // raw data

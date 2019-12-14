@@ -92,11 +92,6 @@ int  IRrecv::decode(decode_results* results)
 }
 
 // +=============================================================================
-IRrecv::IRrecv(int recvpin)
-{
-    irparams.recvpin = recvpin;
-}
-
 // +=============================================================================
 // initialization
 //

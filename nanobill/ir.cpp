@@ -11,7 +11,7 @@
 
 namespace ir {
     IRsend irsend;
-    IRrecv irrecv(IR_RECEIVE);
+    IRrecv irrecv;
 
     decode_results results;
     uint32_t msg;
