@@ -31,50 +31,50 @@
 #define DECODE_RC5           1
 #define SEND_RC5             1
 
-#define DECODE_RC6           1
-#define SEND_RC6             1
+#define DECODE_RC6           0
+#define SEND_RC6             0
 
-#define DECODE_NEC           1
-#define SEND_NEC             1
+#define DECODE_NEC           0
+#define SEND_NEC             0
 
-#define DECODE_SONY          1
-#define SEND_SONY            1
+#define DECODE_SONY          0
+#define SEND_SONY            0
 
-#define DECODE_PANASONIC     1
-#define SEND_PANASONIC       1
+#define DECODE_PANASONIC     0
+#define SEND_PANASONIC       0
 
-#define DECODE_JVC           1
-#define SEND_JVC             1
+#define DECODE_JVC           0
+#define SEND_JVC             0
 
-#define DECODE_SAMSUNG       1
-#define SEND_SAMSUNG         1
+#define DECODE_SAMSUNG       0
+#define SEND_SAMSUNG         0
 
-#define DECODE_WHYNTER       1
-#define SEND_WHYNTER         1
+#define DECODE_WHYNTER       0
+#define SEND_WHYNTER         0
 
-#define DECODE_AIWA_RC_T501  1
-#define SEND_AIWA_RC_T501    1
+#define DECODE_AIWA_RC_T501  0
+#define SEND_AIWA_RC_T501    0
 
-#define DECODE_LG            1
-#define SEND_LG              1
+#define DECODE_LG            0
+#define SEND_LG              0
 
-#define DECODE_SANYO         1
+#define DECODE_SANYO         0
 #define SEND_SANYO           0 // NOT WRITTEN
 
-#define DECODE_MITSUBISHI    1
+#define DECODE_MITSUBISHI    0
 #define SEND_MITSUBISHI      0 // NOT WRITTEN
 
 #define DECODE_DISH          0 // NOT WRITTEN
-#define SEND_DISH            1
+#define SEND_DISH            0
 
 #define DECODE_SHARP         0 // NOT WRITTEN
-#define SEND_SHARP           1
+#define SEND_SHARP           0
 
-#define DECODE_DENON         1
-#define SEND_DENON           1
+#define DECODE_DENON         0
+#define SEND_DENON           0
 
 #define DECODE_PRONTO        0 // This function doe not logically make sense
-#define SEND_PRONTO          1
+#define SEND_PRONTO          0
 
 // ------------------------------------------------------------------------------
 // When sending a Pronto code we request to send either the "once" code
@@ -129,7 +129,7 @@ decode_type_t;
 #if DEBUG
 #define DBG_PRINT(...) Serial.print(__VA_ARGS__)
 #define DBG_PRINTLN(...) Serial.println(__VA_ARGS__)
-#else  /* if DEBUG */
+#else /* if DEBUG */
 #define DBG_PRINT(...)
 #define DBG_PRINTLN(...)
 #endif /* if DEBUG */
@@ -191,55 +191,55 @@ class IRrecv
 #if DECODE_RC6
         bool  decodeRC6(decode_results* results);
 #endif /* if DECODE_RC6 */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_NEC
         bool  decodeNEC(decode_results* results);
 #endif /* if DECODE_NEC */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_SONY
         bool  decodeSony(decode_results* results);
 #endif /* if DECODE_SONY */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_PANASONIC
         bool  decodePanasonic(decode_results* results);
 #endif /* if DECODE_PANASONIC */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_JVC
         bool  decodeJVC(decode_results* results);
 #endif /* if DECODE_JVC */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_SAMSUNG
         bool  decodeSAMSUNG(decode_results* results);
 #endif /* if DECODE_SAMSUNG */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_WHYNTER
         bool  decodeWhynter(decode_results* results);
 #endif /* if DECODE_WHYNTER */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_AIWA_RC_T501
         bool  decodeAiwaRCT501(decode_results* results);
 #endif /* if DECODE_AIWA_RC_T501 */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_LG
         bool  decodeLG(decode_results* results);
 #endif /* if DECODE_LG */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_SANYO
         bool  decodeSanyo(decode_results* results);
 #endif /* if DECODE_SANYO */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_MITSUBISHI
         bool  decodeMitsubishi(decode_results* results);
 #endif /* if DECODE_MITSUBISHI */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_DISH
         bool  decodeDish(decode_results* results); // NOT WRITTEN
 #endif /* if DECODE_DISH */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_SHARP
         bool  decodeSharp(decode_results* results); // NOT WRITTEN
 #endif /* if DECODE_SHARP */
-        // ......................................................................
+       // ......................................................................
 #if DECODE_DENON
         bool  decodeDenon(decode_results* results);
 #endif /* if DECODE_DENON */
@@ -266,19 +266,19 @@ class IRsend
 #if SEND_RC6
         void  sendRC6(unsigned long data,  int nbits);
 #endif /* if SEND_RC6 */
-        // ......................................................................
+       // ......................................................................
 #if SEND_NEC
         void  sendNEC(unsigned long data,  int nbits);
 #endif /* if SEND_NEC */
-        // ......................................................................
+       // ......................................................................
 #if SEND_SONY
         void  sendSony(unsigned long data,  int nbits);
 #endif /* if SEND_SONY */
-        // ......................................................................
+       // ......................................................................
 #if SEND_PANASONIC
         void  sendPanasonic(unsigned int address,  unsigned long data);
 #endif /* if SEND_PANASONIC */
-        // ......................................................................
+       // ......................................................................
 #if SEND_JVC
         // JVC does NOT repeat by sending a separate code (like NEC does).
         // The JVC protocol repeats by skipping the header.
@@ -286,44 +286,44 @@ class IRsend
         //   and set 'repeat' to true
         void  sendJVC(unsigned long data,  int nbits,  bool repeat);
 #endif /* if SEND_JVC */
-        // ......................................................................
+       // ......................................................................
 #if SEND_SAMSUNG
         void  sendSAMSUNG(unsigned long data,  int nbits);
 #endif /* if SEND_SAMSUNG */
-        // ......................................................................
+       // ......................................................................
 #if SEND_WHYNTER
         void  sendWhynter(unsigned long data,  int nbits);
 #endif /* if SEND_WHYNTER */
-        // ......................................................................
+       // ......................................................................
 #if SEND_AIWA_RC_T501
         void  sendAiwaRCT501(int code);
 #endif /* if SEND_AIWA_RC_T501 */
-        // ......................................................................
+       // ......................................................................
 #if SEND_LG
         void  sendLG(unsigned long data,  int nbits);
 #endif /* if SEND_LG */
-        // ......................................................................
+       // ......................................................................
 #if SEND_SANYO
         void  sendSanyo(); // NOT WRITTEN
 #endif /* if SEND_SANYO */
-        // ......................................................................
+       // ......................................................................
 #if SEND_MISUBISHI
         void  sendMitsubishi(); // NOT WRITTEN
 #endif /* if SEND_MISUBISHI */
-        // ......................................................................
+       // ......................................................................
 #if SEND_DISH
         void  sendDISH(unsigned long data,  int nbits);
 #endif /* if SEND_DISH */
-        // ......................................................................
+       // ......................................................................
 #if SEND_SHARP
         void  sendSharpRaw(unsigned long data,  int nbits);
         void  sendSharp(unsigned int address,  unsigned int command);
 #endif /* if SEND_SHARP */
-        // ......................................................................
+       // ......................................................................
 #if SEND_DENON
         void  sendDenon(unsigned long data,  int nbits);
 #endif /* if SEND_DENON */
-        // ......................................................................
+       // ......................................................................
 #if SEND_PRONTO
         void  sendPronto(char* code,  bool repeat,  bool fallback);
 #endif /* if SEND_PRONTO */
