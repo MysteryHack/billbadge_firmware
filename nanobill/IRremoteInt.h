@@ -22,7 +22,7 @@
 //
 #if defined(ARDUINO) && (ARDUINO >= 100)
 #include <Arduino.h>
-#else  /* if defined(ARDUINO) && (ARDUINO >= 100) */
+#else /* if defined(ARDUINO) && (ARDUINO >= 100) */
 #if !defined(IRPRONTO)
 #include <WProgram.h>
 #endif /* if !defined(IRPRONTO) */
@@ -33,7 +33,7 @@
 //
 #ifdef IR_GLOBAL
 #define EXTERN
-#else  /* ifdef IR_GLOBAL */
+#else /* ifdef IR_GLOBAL */
 #define EXTERN extern
 #endif /* ifdef IR_GLOBAL */
 
@@ -47,8 +47,6 @@ typedef
     // The fields are ordered to reduce memory over caused by struct-padding
     uint8_t      rcvstate;       // State Machine state
     uint8_t      recvpin;        // Pin connected to IR data from detector
-    uint8_t      blinkpin;
-    uint8_t      blinkflag;      // true -> enable blinking of pin on IR processing
     uint8_t      rawlen;         // counter of entries in rawbuf
     unsigned int timer;          // State timer, counts 50uS ticks.
     unsigned int rawbuf[RAWBUF]; // raw data
@@ -87,7 +85,7 @@ EXTERN  volatile irparams_t irparams;
 #define BLINKLED_ON() (PORTD |= B00000001)
 #define BLINKLED_OFF() (PORTD &= B11111110)
 
-#else  /* if defined(CORE_LED0_PIN) */
+#else /* if defined(CORE_LED0_PIN) */
 #define BLINKLED        13
         #define BLINKLED_ON() (PORTB |= B00100000)
 #define BLINKLED_OFF() (PORTB &= B11011111)
@@ -241,7 +239,7 @@ EXTERN  volatile irparams_t irparams;
         OCR2A  = TIMER_COUNT_TOP;\
         TCNT2  = 0;\
     })
-#else  /* if (TIMER_COUNT_TOP < 256) */
+#else /* if (TIMER_COUNT_TOP < 256) */
 #define TIMER_CONFIG_NORMAL() ({\
         TCCR2A = _BV(WGM21);\
         TCCR2B = _BV(CS21);\
@@ -274,7 +272,7 @@ EXTERN  volatile irparams_t irparams;
 #if defined(__AVR_ATmega8P__) || defined(__AVR_ATmega8__)
 #define TIMER_ENABLE_INTR   (TIMSK |= _BV(OCIE1A))
 #define TIMER_DISABLE_INTR  (TIMSK &= ~_BV(OCIE1A))
-#else  /* if defined(__AVR_ATmega8P__) || defined(__AVR_ATmega8__) */
+#else /* if defined(__AVR_ATmega8P__) || defined(__AVR_ATmega8__) */
 #define TIMER_ENABLE_INTR   (TIMSK1 = _BV(OCIE1A))
 #define TIMER_DISABLE_INTR  (TIMSK1 = 0)
 #endif /* if defined(__AVR_ATmega8P__) || defined(__AVR_ATmega8__) */
@@ -497,7 +495,7 @@ EXTERN  volatile irparams_t irparams;
 // -----------------
 #if (F_BUS == 48000000)
 #define CMT_PPS_VAL  5
-#else  /* if (F_BUS == 48000000) */
+#else /* if (F_BUS == 48000000) */
 #define CMT_PPS_VAL  2
 #endif /* if (F_BUS == 48000000) */
 
@@ -584,7 +582,7 @@ EXTERN  volatile irparams_t irparams;
         OCR0A = TIMER_COUNT_TOP;\
         TCNT0 = 0;\
     })
-#else  /* if (TIMER_COUNT_TOP < 256) */
+#else /* if (TIMER_COUNT_TOP < 256) */
 #define TIMER_CONFIG_NORMAL() ({\
         TCCR0A = _BV(WGM01);\
         TCCR0B = _BV(CS01);\
@@ -598,7 +596,7 @@ EXTERN  volatile irparams_t irparams;
 // ---------------------------------------------------------
 // Unknown Timer
 //
-#else  /* if defined(IR_USE_TIMER2) */
+#else /* if defined(IR_USE_TIMER2) */
 #error "Internal code configuration error, no known IR_USE_TIMER# defined\n"
 #endif /* if defined(IR_USE_TIMER2) */
 #endif /* ifndef IRremoteint_h */

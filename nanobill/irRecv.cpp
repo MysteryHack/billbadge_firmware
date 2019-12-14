@@ -93,16 +93,7 @@ int  IRrecv::decode(decode_results* results)
 // +=============================================================================
 IRrecv::IRrecv(int recvpin)
 {
-    irparams.recvpin   = recvpin;
-    irparams.blinkflag = 0;
-}
-
-IRrecv::IRrecv(int recvpin, int blinkpin)
-{
-    irparams.recvpin  = recvpin;
-    irparams.blinkpin = blinkpin;
-    pinMode(blinkpin, OUTPUT);
-    irparams.blinkflag = 0;
+    irparams.recvpin = recvpin;
 }
 
 // +=============================================================================
@@ -130,15 +121,6 @@ void  IRrecv::enableIRIn()
 
     // Set pin modes
     pinMode(irparams.recvpin, INPUT);
-}
-
-// +=============================================================================
-// Enable/disable blinking of pin 13 on IR processing
-//
-void  IRrecv::blink13(int blinkflag)
-{
-    irparams.blinkflag = blinkflag;
-    if (blinkflag) pinMode(BLINKLED, OUTPUT);
 }
 
 // +=============================================================================
