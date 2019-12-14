@@ -10,6 +10,7 @@
 #define ENABLE_DEBUG
 #define DEBUG_PORT Serial
 #define DEBUG_BAUD 115200
+#define RANDOM_SEED
 
 /* ===== HARDWARE ===== */
 #define READ_BUTTON() (digitalRead(BTN) == LOW)

@@ -31,11 +31,12 @@ namespace team {
 #ifdef PLAYER_COLOR
         return &PLAYER_COLOR;
 #else // ifdef PLAYER_COLOR
+#ifdef RANDOM_SEED
         pinMode(A1, INPUT);
         pinMode(A2, INPUT);
         pinMode(A3, INPUT);
         randomSeed(analogRead(A1) + analogRead(A2) + analogRead(A3));
-
+#endif // ifdef RANDOM_SEED
         int rteam = random(1, 7);
 
         if (rteam == 1) return &r;
