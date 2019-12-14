@@ -1,5 +1,6 @@
 #include "IRremote.h"
 #include "IRremoteInt.h"
+#include "config.h"
 
 // +=============================================================================
 void  IRsend::sendRaw(const unsigned int buf[],  unsigned int len,  unsigned int hz)
@@ -51,10 +52,10 @@ void  IRsend::space(unsigned int time)
 void  IRsend::enableIROut(int khz)
 {
     // Disable the Timer2 Interrupt (which is used for receiving IR)
-    TIMER_DISABLE_INTR;               // Timer2 Overflow Interrupt
+    TIMER_DISABLE_INTR; // Timer2 Overflow Interrupt
 
-    pinMode(TIMER_PWM_PIN, OUTPUT);
-    digitalWrite(TIMER_PWM_PIN, LOW); // When not sending PWM, we want it low
+    IR_SEND_MODE();
+    IR_SEND_LOW();
 
     // COM2A = 00: disconnect OC2A
     // COM2B = 00: disconnect OC2B; to send signal set to 10: OC2B non-inverted

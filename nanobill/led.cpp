@@ -35,9 +35,8 @@ namespace led {
     }
 
     void digital(bool r, bool g, bool b) {
-        digitalWrite(LED_R, r);
-        digitalWrite(LED_G, g);
-        digitalWrite(LED_B, b);
+        RGB_RESET();
+        RGB_SET(r, g, b);
     }
 
     void rgb(uint8_t r, uint8_t g, uint8_t b) {
@@ -63,11 +62,7 @@ namespace led {
             pwm_prev += pwm_int;
 
             if (pwm_count == 255) {
-                // digitalWrite(LED_R, LOW);
-                // digitalWrite(LED_G, LOW);
-                // digitalWrite(LED_B, LOW);
-
-                PORTB &= ~(1<<PB3 | 1<<PB2 | 1<<PB1);
+                RGB_RESET();
 
                 pwm_count = 0;
 
@@ -78,13 +73,7 @@ namespace led {
                     pwm_color[2] = new_color[2];
                 }
             } else {
-                // if (pwm_count == pwm_color[0]) digitalWrite(LED_R, HIGH);
-                // if (pwm_count == pwm_color[1]) digitalWrite(LED_G, HIGH);
-                // if (pwm_count == pwm_color[2]) digitalWrite(LED_B, HIGH);
-
-                PORTB |= ((pwm_count == pwm_color[0])<<PB3)
-                         | ((pwm_count == pwm_color[1])<<PB2)
-                         | ((pwm_count == pwm_color[2])<<PB1);
+                RGB_SET(pwm_count == pwm_color[0], pwm_count == pwm_color[1], pwm_count == pwm_color[2]);
 
                 ++pwm_count;
             }

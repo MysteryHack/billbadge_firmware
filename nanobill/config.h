@@ -14,6 +14,19 @@
 /* ===== HARDWARE ===== */
 #define READ_BUTTON() (digitalRead(BTN) == LOW)
 #define READ_IR_RECEIVE() ((uint8_t)digitalRead(irparams.recvpin))
+#define IR_SEND_MODE() (pinMode(TIMER_PWM_PIN, OUTPUT))
+#define IR_SEND_LOW() (digitalWrite(TIMER_PWM_PIN, LOW))
+
+#define RGB_SET(r, g, b) PORTB |= (r<<PB3) | (g<<PB2) | (b<<PB1)
+// digitalWrite(LED_R, r);
+// digitalWrite(LED_G, g);
+// digitalWrite(LED_B, b);
+
+#define RGB_RESET() (PORTB &= ~(1<<PB3 | 1<<PB2 | 1<<PB1))
+// digitalWrite(LED_R, LOW);
+// digitalWrite(LED_G, LOW);
+// digitalWrite(LED_B, LOW);
+
 
 #define BTN 6 // Button pin
 
