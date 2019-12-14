@@ -13,10 +13,18 @@
 #define RANDOM_SEED
 
 /* ===== HARDWARE ===== */
+#define BUTTON_MODE() (pinMode(BTN, INPUT_PULLUP))
 #define READ_BUTTON() (digitalRead(BTN) == LOW)
-#define READ_IR_RECEIVE() ((uint8_t)digitalRead(irparams.recvpin))
+
+#define IR_RECEIVE_MODE() (pinMode(irparams.recvpin, INPUT))
+#define IR_RECEIVE_READ() ((uint8_t)digitalRead(irparams.recvpin))
+
 #define IR_SEND_MODE() (pinMode(TIMER_PWM_PIN, OUTPUT))
 #define IR_SEND_LOW() (digitalWrite(TIMER_PWM_PIN, LOW))
+
+#define RGB_MODE() pinMode(LED_R, OUTPUT);\
+    pinMode(LED_G, OUTPUT);\
+    pinMode(LED_B, OUTPUT);
 
 #define RGB_SET(r, g, b) PORTB |= (r<<PB3) | (g<<PB2) | (b<<PB1)
 // digitalWrite(LED_R, r);

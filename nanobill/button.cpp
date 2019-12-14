@@ -11,7 +11,7 @@
 
 namespace button {
     void begin() {
-        pinMode(BTN, INPUT_PULLUP);
+        BUTTON_MODE();
         debugln("Button initialized");
     }
 

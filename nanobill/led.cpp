@@ -23,9 +23,7 @@ namespace led {
     uint8_t new_color[] = { 255, 255, 255 };
 
     void begin() {
-        pinMode(LED_R, OUTPUT);
-        pinMode(LED_G, OUTPUT);
-        pinMode(LED_B, OUTPUT);
+        RGB_MODE();
 
         rgb(0, 0, 0);
 

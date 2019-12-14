@@ -127,7 +127,7 @@ ISR(TIMER_INTR_NAME)
 
     // Read if IR Receiver -> SPACE [xmt LED off] or a MARK [xmt LED on]
     // digitalRead() is very slow. Optimisation is possible, but makes the code unportable
-    uint8_t irdata = READ_IR_RECEIVE();
+    uint8_t irdata = IR_RECEIVE_READ();
 
     irparams.timer++;                                                   // One more 50uS tick
     if (irparams.rawlen >= RAWBUF) irparams.rcvstate = STATE_OVERFLOW;  // Buffer overflow

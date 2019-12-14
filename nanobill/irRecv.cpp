@@ -1,5 +1,6 @@
 #include "IRremote.h"
 #include "IRremoteInt.h"
+#include "config.h"
 
 // +=============================================================================
 // Decodes the received IR message
@@ -120,7 +121,7 @@ void  IRrecv::enableIRIn()
     irparams.rawlen   = 0;
 
     // Set pin modes
-    pinMode(irparams.recvpin, INPUT);
+    IR_RECEIVE_MODE();
 }
 
 // +=============================================================================
