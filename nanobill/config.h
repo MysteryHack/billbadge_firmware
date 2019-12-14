@@ -52,17 +52,17 @@
 #elif defined(USE_ATTINY)
 
 /* ===== HARDWARE ===== */
-  #define BUTTON_MODE() DDRD |= (0 << DDD6); PORTB |= (1 << PD6);
-  #define READ_BUTTON() (PIND & (1 << PIND6)) == 0
+  #define BUTTON_MODE() DDRB |= (0 << DDB5); PORTB |= (1 << PB5);
+  #define BUTTON_READ() (PINB & (1 << PINB5)) == 0
 
-  #define IR_RECEIVE_MODE() DDRD |= (0 << DDD7);
-  #define IR_RECEIVE_READ() (PIND & (1 << PIND7)) != 0
+  #define IR_RECEIVE_MODE() DDRB |= (0 << DDB2);
+  #define IR_RECEIVE_READ() (PINB & (1 << PINB2)) != 0
 
-  #define IR_SEND_MODE() DDRD |= (1 << DDD3);
-  #define IR_SEND_LOW() PORTD &= ~(1 << PD3);
+  #define IR_SEND_MODE() DDRB |= (1 << DDB1);
+  #define IR_SEND_LOW() PORTB &= ~(1 << PB1);
 
-  #define RGB_MODE() DDRB |= (1<<PB3 | 1<<PB2 | 1<<PB1);
-  #define RGB_SET(rx, gx, bx) (PORTB |= (rx<<PB3) | (gx<<PB2) | (bx<<PB1))
-  #define RGB_RESET() (PORTB &= ~(1<<PB3 | 1<<PB2 | 1<<PB1))
+  #define RGB_MODE() DDRB |= (1<<PB4 | 1<<PB3 | 1<<PB0);
+  #define RGB_SET(rx, gx, bx) (PORTB |= (rx<<PB4) | (gx<<PB3) | (bx<<PB0))
+  #define RGB_RESET() (PORTB &= ~(1<<PB4 | 1<<PB3 | 1<<PB0))
 
 #endif /* ifdef USE_NANO */
