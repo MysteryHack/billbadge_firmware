@@ -71,7 +71,7 @@ namespace led {
                     pwm_color[2] = new_color[2];
                 }
             } else {
-                RGB_SET(pwm_count == pwm_color[0], pwm_count == pwm_color[1], pwm_count == pwm_color[2]);
+                RGB_SET((pwm_count == pwm_color[0]), (pwm_count == pwm_color[1]), (pwm_count == pwm_color[2]));
 
                 ++pwm_count;
             }
