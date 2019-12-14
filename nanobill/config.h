@@ -12,6 +12,9 @@
 #define DEBUG_BAUD 115200
 
 /* ===== HARDWARE ===== */
+#define READ_BUTTON() (digitalRead(BTN) == LOW)
+#define READ_IR_RECEIVE() ((uint8_t)digitalRead(irparams.recvpin))
+
 #define BTN 6 // Button pin
 
 // Infrared receive and send pin

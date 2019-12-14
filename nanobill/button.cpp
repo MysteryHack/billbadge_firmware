@@ -16,6 +16,6 @@ namespace button {
     }
 
     bool pressed() {
-        return digitalRead(BTN) == LOW;
+        return READ_BUTTON();
     }
 }
