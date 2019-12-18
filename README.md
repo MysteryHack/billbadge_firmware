@@ -28,10 +28,10 @@ Under tools select:
 
 Fuses:  
 
-`AVRDUDE -U lfuse:w:0xD1:m -U hfuse:w:0xDF:m`
+`AVRDUDE -U lfuse:w:0xD1:m -U hfuse:w:0x5F:m`
 
 * LFUSE=D1
-* HFUSE=DF
+* HFUSE=5F
 * EFUSE=FF
 
 Fuse calculator: http://eleccelerator.com/fusecalc/fusecalc.php?chip=attiny85
