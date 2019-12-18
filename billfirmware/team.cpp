@@ -6,8 +6,6 @@
 
 #include "team.h"
 
-#include <Arduino.h>
-#include "debug.h"
 #include "config.h"
 
 namespace team {

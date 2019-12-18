@@ -5,9 +5,8 @@
  */
 
 #include "led.h"
+
 #include "config.h"
-#include "debug.h"
-#include <Arduino.h>
 
 namespace led {
     const unsigned long pwm_int = 1000000 / PWM_HZ / 256;

@@ -5,9 +5,9 @@
  */
 
 #include "ir.h"
+
 #include "config.h"
-#include "debug.h"
-#include "IRremote.h"
+#include "IRremote.h "
 
 namespace ir {
     IRsend irsend;
@@ -18,7 +18,7 @@ namespace ir {
 
     void begin() {
         irrecv.enableIRIn();
-        debugln("IR receive activated");
+        debugln("IR receive activated ");
     }
 
     bool update() {

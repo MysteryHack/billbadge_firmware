@@ -6,9 +6,6 @@
 
 #include "eeprom.h"
 
-#include "config.h"
-
-
 namespace eeprom {
     void begin() {
         EEPROM.begin();

@@ -24,8 +24,9 @@
 #define IR_GLOBAL
 #include "IRremote.h"
 #include "IRremoteInt.h"
-#include "config.h"
 #undef IR_GLOBAL
+
+#include "config.h"
 
 // +=============================================================================
 // The match functions were (apparently) originally MACROs to improve code speed

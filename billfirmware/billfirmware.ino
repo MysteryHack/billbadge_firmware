@@ -4,7 +4,7 @@
    Source: github.com/spacehuhn/bill
  */
 
-#include "debug.h"
+#include "config.h"
 #include "eeprom.h"
 #include "ir.h"
 #include "led.h"

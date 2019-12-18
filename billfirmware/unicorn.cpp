@@ -10,9 +10,6 @@
 #include "player.h"
 #include "button.h"
 #include "led.h"
-#include "debug.h"
-
-#include <Arduino.h>
 
 namespace unicorn {
     unsigned long prev = 0;

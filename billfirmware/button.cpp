@@ -6,8 +6,6 @@
 
 #include "button.h"
 #include "config.h"
-#include "debug.h"
-#include <Arduino.h>
 
 namespace button {
     void begin() {

@@ -7,13 +7,10 @@
 #include "player.h"
 
 #include "config.h"
-#include "debug.h"
 #include "led.h"
 #include "team.h"
 #include "ir.h"
 #include "eeprom.h"
-
-#include <Arduino.h>
 
 #define PLAYER_MAGIC_NUM 123
 #define UNICORN_MASK 0x3F
