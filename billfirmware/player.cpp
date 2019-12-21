@@ -112,10 +112,6 @@ namespace player {
         if (team) {
             unsigned long m = millis();
 
-            if (m - wololo_time >= WOLOLO_TIMEOUT) {
-                wololo_count = 0;
-            }
-
             if ((wololo_count < WOLOLO_MAX) && (m - wololo_time >= WOLOLO_DELAY)) {
                 wololo_time = m;
                 ++wololo_count;
@@ -135,7 +131,7 @@ namespace player {
     }
 
     void convert(uint32_t code) {
-        if ((millis() - timeout_begin >= PLAYER_TIMEOUT) && (code != team->code)) {
+        if (code != team->code) {
             if (team::validate_code(code)) {
                 set_team(team::from_code(code));
             }
@@ -144,5 +140,9 @@ namespace player {
 
     bool unicorn() {
         return p.team_collection == UNICORN_MASK;
+    }
+
+    void recharge() {
+        wololo_count = 0;
     }
 }

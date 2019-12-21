@@ -36,8 +36,12 @@ void setup() {
 void loop() {
     if (button::pressed()) {
         player::wololo();
-    } else if (ir::update()) {
-        player::convert(ir::get_msg());
+    } else {
+        player::recharge();
+
+        if (ir::update()) {
+            player::convert(ir::get_msg());
+        }
     }
 
     player::update();

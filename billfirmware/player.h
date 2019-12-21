@@ -15,4 +15,6 @@ namespace player {
     void wololo();
     void convert(uint32_t code);
     bool unicorn();
+
+    void recharge();
 }
