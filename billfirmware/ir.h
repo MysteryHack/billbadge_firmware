@@ -12,5 +12,5 @@ namespace ir {
 
     uint32_t get_msg();
 
-    void send(uint32_t code);
+    void send(uint16_t code);
 }

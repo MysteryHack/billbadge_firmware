@@ -40,9 +40,9 @@ namespace ir {
         return msg;
     }
 
-    void send(uint32_t code) {
+    void send(uint16_t code) {
         // irsend.sendNEC(code, 32); // kinda sucks
-        irsend.sendRC5(code, 32); // ok
+        irsend.sendRC5(code, 16); // ok
         // irsend.sendRC6(code, 32); // sucks
         // irsend.sendSAMSUNG(code, 32); // sucks hard
         // irsend.sendSony(code, 32); // meh
