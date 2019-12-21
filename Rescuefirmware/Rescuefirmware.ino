@@ -4,20 +4,23 @@
 // Fuse Calc:
 // http://www.engbedded.com/fusecalc/
 
+// Fuse calculator: http://eleccelerator.com/fusecalc/fusecalc.php?chip=attiny85
+#define ATTINY85_LFUSE_VALUE 0xD1   // PLL=D1, default=62
+
+#define ATTINY85_HFUSE_VALUE_A 0x5F // RST disabled=5F, default=DF
+#define ATTINY85_HFUSE_VALUE_B 0xDF // RST disabled=5F, default=DF
+
+#define ATTINY85_EFUSE_VALUE 0xFF
+
 #define ATTINY13_LFUSE_VALUE 0x6A
 #define ATTINY13_HFUSE_VALUE 0x57
 
-// Fuse calculator: http://eleccelerator.com/fusecalc/fusecalc.php?chip=attiny85
-#define ATTINY85_LFUSE_VALUE 0xD1 // PLL=D1, default=62
-#define ATTINY85_HFUSE_VALUE 0xDF // RST disabled=5F, default=DF
-#define ATTINY85_EFUSE_VALUE 0xFF
-
-#define RST 13                    // Output to level shifter for !RESET from transistor
-#define SCI 12                    // Target Clock Input
-#define SDO 11                    // Target Data Output
-#define SII 10                    // Target Instruction Input
-#define SDI 9                     // Target Data Input
-#define VCC 8                     // Target VCC
+#define RST 13 // Output to level shifter for !RESET from transistor
+#define SCI 12 // Target Clock Input
+#define SDO 11 // Target Data Output
+#define SII 10 // Target Instruction Input
+#define SDI 9  // Target Data Input
+#define VCC 8  // Target VCC
 
 #define HFUSE 0x747C
 #define LFUSE 0x646C
@@ -46,6 +49,7 @@ void setup() {
     Serial.println("Enter button to start process..");
 
     pinMode(7, INPUT_PULLUP);
+    pinMode(5, INPUT_PULLUP);
     pinMode(6, OUTPUT);
 
     digitalWrite(6, LOW);
@@ -55,13 +59,19 @@ void loop() {
     if (digitalRead(7) == LOW) {
         digitalWrite(6, HIGH);
         delay(100);
-        start_rescue();
+        start_rescue(ATTINY85_HFUSE_VALUE_A);
+        delay(100);
+        digitalWrite(6, LOW);
+    } else if (digitalRead(5) == LOW) {
+        digitalWrite(6, HIGH);
+        delay(100);
+        start_rescue(ATTINY85_HFUSE_VALUE_B);
         delay(100);
         digitalWrite(6, LOW);
     }
 }
 
-void start_rescue() {
+void start_rescue(uint8_t hfuse) {
     Serial.println("Starting...");
     Serial.flush();
 
@@ -103,7 +113,7 @@ void start_rescue() {
         else if (sig == ATTINY85) Serial.println("ATTINY85..");
 
         writeFuse(LFUSE, ATTINY85_LFUSE_VALUE); // 62
-        writeFuse(HFUSE, ATTINY85_HFUSE_VALUE); // RST disabled=5F, default=DF
+        writeFuse(HFUSE, hfuse);                // RST disabled=5F, default=DF
         writeFuse(EFUSE, ATTINY85_EFUSE_VALUE);
     }
 
