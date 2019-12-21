@@ -17,6 +17,7 @@ namespace led {
 
     uint8_t pwm_color[] = { 255, 255, 255 };
 
+    bool enabled = false;
     bool changed = false;
 
     uint8_t new_color[] = { 255, 255, 255 };
@@ -24,11 +25,21 @@ namespace led {
     void begin() {
         RGB_MODE();
 
+        enable();
         rgb(0, 0, 0);
 
         debugln("LED initialized");
 
         pwm_prev = micros();
+    }
+
+    void enable() {
+        enabled = true;
+    }
+
+    void disable() {
+        RGB_RESET();
+        enabled = false;
     }
 
     void digital(bool r, bool g, bool b) {
@@ -53,26 +64,28 @@ namespace led {
     }
 
     void update() {
-        unsigned long m = micros();
+        if (enabled) {
+            unsigned long m = micros();
 
-        if (m - pwm_prev >= pwm_int) {
-            pwm_prev += pwm_int;
+            if (m - pwm_prev >= pwm_int) {
+                pwm_prev += pwm_int;
 
-            if (pwm_count == 255) {
-                RGB_RESET();
+                if (pwm_count == 255) {
+                    RGB_RESET();
 
-                pwm_count = 0;
+                    pwm_count = 0;
 
-                if (changed) {
-                    changed      = false;
-                    pwm_color[0] = new_color[0];
-                    pwm_color[1] = new_color[1];
-                    pwm_color[2] = new_color[2];
+                    if (changed) {
+                        changed      = false;
+                        pwm_color[0] = new_color[0];
+                        pwm_color[1] = new_color[1];
+                        pwm_color[2] = new_color[2];
+                    }
+                } else {
+                    RGB_SET((pwm_count == pwm_color[0]), (pwm_count == pwm_color[1]), (pwm_count == pwm_color[2]));
+
+                    ++pwm_count;
                 }
-            } else {
-                RGB_SET((pwm_count == pwm_color[0]), (pwm_count == pwm_color[1]), (pwm_count == pwm_color[2]));
-
-                ++pwm_count;
             }
         }
     }

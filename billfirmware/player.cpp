@@ -116,9 +116,9 @@ namespace player {
                 wololo_time = m;
                 ++wololo_count;
 
-                // led::digital(0, 0, 0);
-
+                led::disable();
                 ir::send(team->code);
+                led::enable();
 
                 debug("Sending team ");
                 debug(team->name);
