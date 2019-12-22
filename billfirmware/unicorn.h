@@ -11,6 +11,8 @@ namespace unicorn {
     bool enabled();
 
     void party();
+    void party_hard();
+
     void wololo();
     void recharge();
 }

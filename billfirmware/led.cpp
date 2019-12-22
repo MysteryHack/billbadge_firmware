@@ -73,6 +73,14 @@ namespace led {
         }
     }
 
+    void random_color() {
+        uint8_t r = random(256);
+        uint8_t g = random(256-r);
+        uint8_t b = (255-r-g);
+
+        rgb(r, g, b);
+    }
+
     void update() {
         if (enabled) {
             unsigned long m = micros();

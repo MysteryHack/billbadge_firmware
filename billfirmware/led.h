@@ -18,6 +18,7 @@ namespace led {
     void color(const color_t& c);
 
     void rainbow(uint8_t pos);
+    void random_color();
 
     void update();
 }

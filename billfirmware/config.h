@@ -9,21 +9,22 @@
 #include <Arduino.h>
 
 // =========== GAME CONFIG ========= //
-#define PWM_HZ 140        // PWM speed in hz
+#define PWM_HZ 140             // PWM speed in hz
 
-#define WOLOLO_DELAY 200  // Time in ms after each signal sent
-#define WOLOLO_MAX 5      // Max. signals that can be send in a row
+#define WOLOLO_DELAY 200       // Time in ms after each signal sent
+#define WOLOLO_MAX 5           // Max. signals that can be send in a row
 
-#define PLAYER_UPDATE 15  // Fading time for each step in ms
-#define PLAYER_COLOR r    // Start color of player
+#define PLAYER_UPDATE 15       // Fading time for each step in ms
+#define PLAYER_COLOR r         // Start color of player
 
-#define SAVE_PLAYER_STATS // Save color in EEPROM
+#define SAVE_PLAYER_STATS      // Save color in EEPROM
 
-#define UNICORN_UPDATE 30 // Fading time for each rainbow step in ms
+#define UNICORN_UPDATE 30      // Fading time for each rainbow step in ms
 
-#define PARTY_CODE 0x42c3 // Party signal IR code
-#define PARTY_TIME 10000  // How long the party will last in ms
-#define PARTY_UPDATE 10   // Fading time for each rainbow step in ms
+#define PARTY_CODE 0x42c3      // Party signal IR code
+#define PARTY_HARD_CODE 0x36c3 // Party hard signal IR code
+#define PARTY_TIME 10000       // How long the party will last in ms
+#define PARTY_UPDATE 10        // Fading time for each rainbow step in ms
 
 // =========== ATTINY85 CONFIG ========= //
 #if defined(__AVR_ATtiny85__)

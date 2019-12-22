@@ -19,8 +19,13 @@ void unicorn_loop() {
         } else {
             unicorn::recharge();
 
-            if (ir::update() && (ir::get_msg() == PARTY_CODE)) {
-                unicorn::party();
+            if (ir::update()) {
+                uint16_t msg = ir::get_msg();
+                if (msg == PARTY_CODE) {
+                    unicorn::party();
+                } else if (msg == PARTY_HARD_CODE) {
+                    unicorn::party_hard();
+                }
             }
         }
 
@@ -41,6 +46,8 @@ void player_loop() {
 
                 if (msg == PARTY_CODE) {
                     unicorn::party();
+                } else if (msg == PARTY_HARD_CODE) {
+                    unicorn::party_hard();
                 } else {
                     player::convert(msg);
                 }

@@ -85,6 +85,28 @@ namespace unicorn {
         debugln("Party ended :(");
     }
 
+    void party_hard() {
+        debugln("Starting to party hard!");
+
+        unsigned long start_time = millis();
+        unsigned long m;
+
+        while (millis() - start_time < PARTY_TIME) {
+            m = millis();
+
+            if (m - update_time >= 333) {
+                update_time = m;
+                led::random_color();
+            }
+
+            led::update();
+        }
+
+        ir::update();
+
+        debugln("Party ended :(");
+    }
+
     void wololo() {
         unsigned long m = millis();
 
