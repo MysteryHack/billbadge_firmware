@@ -25,5 +25,5 @@ typedef struct team_t {
 typedef struct player_t {
     uint8_t  magic_num;
     uint8_t  team_collection;
-    uint32_t team_code;
+    uint16_t team_code;
 } player_t;

@@ -16,7 +16,7 @@ namespace team {
     team_t b = { 'B', 4, 0x7da8, { 0, 0, 40 }, { 0, 0, 255 } };
     team_t p = { 'P', 5, 0x6c45, { 50, 0, 15 }, { 255, 0, 150 } };
 
-    bool validate_code(uint32_t code) {
+    bool validate_code(uint16_t code) {
         return code == r.code
                || code == y.code
                || code == g.code
@@ -29,7 +29,7 @@ namespace team {
         return &PLAYER_COLOR;
     }
 
-    team_t* from_code(uint32_t code) {
+    team_t* from_code(uint16_t code) {
         if (code == r.code) return &r;
         if (code == y.code) return &y;
         if (code == g.code) return &g;

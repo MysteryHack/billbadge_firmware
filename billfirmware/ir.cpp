@@ -14,7 +14,7 @@ namespace ir {
     IRrecv irrecv;
 
     decode_results results;
-    uint32_t msg;
+    uint16_t msg;
 
     void begin() {
         irrecv.enableIRIn();
@@ -36,7 +36,7 @@ namespace ir {
         return false;
     }
 
-    uint32_t get_msg() {
+    uint16_t get_msg() {
         return msg;
     }
 

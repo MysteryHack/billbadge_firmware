@@ -130,7 +130,7 @@ namespace player {
         }
     }
 
-    void convert(uint32_t code) {
+    void convert(uint16_t code) {
         if (code != team->code) {
             if (team::validate_code(code)) {
                 set_team(team::from_code(code));

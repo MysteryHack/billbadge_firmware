@@ -10,7 +10,7 @@ namespace ir {
     void begin();
     bool update();
 
-    uint32_t get_msg();
+    uint16_t get_msg();
 
     void send(uint16_t code);
 }
