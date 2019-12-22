@@ -12,6 +12,46 @@
 #include "player.h"
 #include "unicorn.h"
 
+void unicorn_loop() {
+    while (1) {
+        if (button::pressed()) {
+            unicorn::wololo();
+        } else {
+            unicorn::recharge();
+
+            if (ir::update() && (ir::get_msg() == PARTY_CODE)) {
+                unicorn::party();
+            }
+        }
+
+        unicorn::update();
+        led::update();
+    }
+}
+
+void player_loop() {
+    while (1) {
+        if (button::pressed()) {
+            player::wololo();
+        } else {
+            player::recharge();
+
+            if (ir::update()) {
+                uint16_t msg = ir::get_msg();
+
+                if (msg == PARTY_CODE) {
+                    unicorn::party();
+                } else {
+                    player::convert(msg);
+                }
+            }
+        }
+
+        player::update();
+        led::update();
+    }
+}
+
 void setup() {
     debug_init();
     debugln("Booting Bill... please stand by...");
@@ -26,24 +66,10 @@ void setup() {
     debugln("Bill up and running!");
 
     if (unicorn::enabled()) {
-        while (1) {
-            unicorn::update();
-            led::update();
-        }
-    }
-}
-
-void loop() {
-    if (button::pressed()) {
-        player::wololo();
+        unicorn_loop();
     } else {
-        player::recharge();
-
-        if (ir::update()) {
-            player::convert(ir::get_msg());
-        }
+        player_loop();
     }
-
-    player::update();
-    led::update();
 }
+
+void loop() {}

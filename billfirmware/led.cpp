@@ -63,6 +63,16 @@ namespace led {
         changed = true;
     }
 
+    void rainbow(uint8_t pos) {
+        if (pos < 85) {
+            rgb(pos* 3, 255 - pos * 3, 0);
+        } else if (pos < 170) {
+            rgb(255 - (pos-85) * 3, 0, (pos-85)* 3);
+        } else {
+            rgb(0, (pos-170)* 3, 255 - (pos-170) * 3);
+        }
+    }
+
     void update() {
         if (enabled) {
             unsigned long m = micros();

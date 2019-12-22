@@ -21,6 +21,10 @@
 
 #define UNICORN_UPDATE 30 // Fading time for each rainbow step in ms
 
+#define PARTY_CODE 0x42c3 // Party signal IR code
+#define PARTY_TIME 10000  // How long the party will last in ms
+#define PARTY_UPDATE 10   // Fading time for each rainbow step in ms
+
 // =========== ATTINY85 CONFIG ========= //
 #if defined(__AVR_ATtiny85__)
 /* ===== DEBUG ===== */

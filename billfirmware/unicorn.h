@@ -9,4 +9,8 @@ namespace unicorn {
     void update();
 
     bool enabled();
+
+    void party();
+    void wololo();
+    void recharge();
 }

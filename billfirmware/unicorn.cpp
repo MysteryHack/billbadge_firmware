@@ -10,11 +10,16 @@
 #include "player.h"
 #include "button.h"
 #include "led.h"
+#include "ir.h"
 
 namespace unicorn {
-    unsigned long prev = 0;
-    uint8_t pos        = 0;
-    bool    en         = false;
+    unsigned long update_time = 0;
+    unsigned long wololo_time = 0;
+
+    uint8_t pos          = 0;
+    uint8_t wololo_count = WOLOLO_MAX;
+
+    bool en = false;
 
     void begin() {
 #ifdef SAVE_PLAYER_STATS
@@ -42,17 +47,10 @@ namespace unicorn {
     void update() {
         unsigned long m = millis();
 
-        if (m - prev >= UNICORN_UPDATE) {
-            prev = m;
-            ++pos;
+        if (m - update_time >= UNICORN_UPDATE) {
+            update_time = m;
 
-            if (pos < 85) {
-                led::rgb(pos* 3, 255 - pos* 3, 0);
-            } else if (pos < 170) {
-                led::rgb(255 - (pos-85) * 3, 0, (pos-85)* 3);
-            } else {
-                led::rgb(0, (pos-170)* 3, 255 - (pos-170) * 3);
-            }
+            led::rainbow(pos++);
 
             if (pos == 255) pos = 0;
         }
@@ -60,5 +58,46 @@ namespace unicorn {
 
     bool enabled() {
         return en;
+    }
+
+    void party() {
+        debugln("Starting party!");
+
+        unsigned long start_time = millis();
+        unsigned long m;
+
+        while (millis() - start_time < PARTY_TIME) {
+            m = millis();
+
+            if (m - update_time >= PARTY_UPDATE) {
+                update_time = m;
+
+                led::rainbow(pos++);
+
+                if (pos == 255) pos = 0;
+            }
+
+            led::update();
+        }
+
+        debugln("Party ended :(");
+    }
+
+    void wololo() {
+        unsigned long m = millis();
+
+        if ((wololo_count < WOLOLO_MAX) && (m - wololo_time >= WOLOLO_DELAY)) {
+            debug("Sending party ");
+            debugln(PARTY_CODE, HEX);
+
+            ir::send(PARTY_CODE);
+
+            ++wololo_count;
+            wololo_time = m;
+        }
+    }
+
+    void recharge() {
+        wololo_count = 0;
     }
 }
