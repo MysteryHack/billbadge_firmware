@@ -80,6 +80,8 @@ namespace unicorn {
             led::update();
         }
 
+        ir::update();
+
         debugln("Party ended :(");
     }
 
