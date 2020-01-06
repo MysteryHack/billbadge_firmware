@@ -62,3 +62,13 @@ Fuse calculator: http://eleccelerator.com/fusecalc/fusecalc.php?chip=attiny85
 
 ![Stolen Attiny85 pinout 1](https://www.heise.de/developer/imgs/06/1/8/9/4/0/3/6/52713d5b757b7fc0658b4567-f64100a86198028c.png)
 ![Stolen Attiny85 pinout 2](http://homemadehardware.com/img/attiny85_pinout.jpeg)
+
+## PCB Designs
+
+Attiny85 fuse burner: https://easyeda.com/spacehuhn/attinyrescue
+
+Bill badge prototype with Arduino Nano: https://easyeda.com/Spacehuhn/projectbill-prototype
+
+Attiny85 Programmer: https://easyeda.com/Spacehuhn/attinyprogrammer
+
+Final Badge Design: Somewhere here https://github.com/MysteryHack
